@@ -28,14 +28,13 @@ function outputNumbers(list) {
 }
 
 function outputSHAs(list) {
-  let shaList = list.map(p => p.head.sha);
+  let shaList = list.map(p => p.head.ref);
   core.setOutput('pullRequestSHAs', shaList);
 }
 
 function outputRefs(list) {
   let refs = list.map(p => p.base.ref);
   var unique = refs.filter((value, index, array) => array.indexOf(value) === index);
-
   core.setOutput('baseRefs', unique);
 }
 

@@ -7,7 +7,7 @@ function listPullRequests(token, repoOwner, repo, state) {
     owner: repoOwner,
     repo: repo,
     state: state,
-    sort: 'updated',
+    sort: 'created',
     direction: 'desc',
     per_page: 100,
   });

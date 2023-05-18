@@ -38,6 +38,8 @@ function outputRefs(list) {
 }
 
 function outputCombo(list) {
+  core.warning(list)
+  core.warning(list.length)
   let combo = {}
   for (var i = 0; i < list.length; i++) {
     combo[item[i].number] = item;

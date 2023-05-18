@@ -34,6 +34,8 @@ function outputSHAs(list) {
 
 function outputRefs(list) {
   let refs = list.map(p => p.base.ref);
+  refs = Array.from(Set(refs))
+
   core.setOutput('baseRefs', refs);
 }
 

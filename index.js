@@ -21,15 +21,54 @@ function filterDate(pr, targetDate) {
   return false;
 }
 
+function dfs(node, graph, visited, ordering) {
+  visited.add(node);
+  const children = graph.get(node);
+  if (children) {
+    for (const child of children) {
+      if (!visited.has(child)) {
+        dfs(child, graph, visited, ordering);
+      }
+    }
+  }
+  ordering.push(node);
+}
+
+function topologicalSort(pr_list) {
+  const graph = new Map();
+
+  // Build the adjacency list
+  for (const ref of pr_list) {
+    if (!graph.has(pr.base.ref)) {
+      graph.set(pr.base.ref, []);
+    }
+    graph.get(pr.base.ref).push(ref.head.ref);
+  }
+
+  const visited = new Set();
+  const ordering = [];
+
+  // Iterate over all nodes in the graph
+  for (const ref of pr_list) {
+    if (!visited.has(pr.base.ref)) {
+      dfs(pr.base.ref, graph, visited, ordering);
+    }
+  }
+
+  ordering.reverse(); // Reverse the ordering to get the correct result
+
+  return ordering;
+}
+
 
 function outputNumbers(list) {
   let numberList = list.map(p => p.number);
   core.setOutput('pullRequestNumbers', numberList);
 }
 
-function outputHeadRefs(list) {
-  let shaList = list.map(p => p.head.ref);
-  core.setOutput('headRefs', shaList);
+function outputsortedRefs(list) {
+  sortedRefs = topologicalSort(list)
+  core.setOutput('sortedRefs', sortedRefs);
 }
 
 function outputBaseRefs(list) {
@@ -62,7 +101,7 @@ try {
   prom.then(function (list) {
     let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate); });
     outputNumbers(filtered);
-    outputHeadRefs(filtered);
+    outputsortedRefs(filtered);
     outputBaseRefs(filtered);
     outputCombo(filtered);
   });

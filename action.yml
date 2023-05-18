@@ -26,7 +26,7 @@ inputs:
 outputs:
   pullRequestNumbers:
     description: "List of pull request numbers"
-  headRefs:
+  sortedRefs:
     description: "List of pull request head refs"
   baseRefs:
     description: "List of pull request base refs"

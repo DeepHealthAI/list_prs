@@ -44,8 +44,8 @@ function outputSHAs(list) {
 
 
 try {
-  const octokit = github.getOctokit(token);
   const token = core.getInput('token');
+  const octokit = github.getOctokit(token);
   const repoOwner = github.context.repo.owner;
   const repo = github.context.repo.repo;
   const state = core.getInput('state');

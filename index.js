@@ -40,8 +40,10 @@ function outputRefs(list) {
 function outputCombo(list) {
   let combo = {}
   for (var i = 0; i < list.length; i++) {
-    combo[item[i].number] = item
+    combo[item[i].number] = item;
+    core.warning(i)
   }
+  core.warning(combo)
 
   core.setOutput('combo', combo);
 }

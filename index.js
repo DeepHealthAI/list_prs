@@ -42,7 +42,7 @@ function topologicalSort(pr_list) {
     if (!graph.has(pr.base.ref)) {
       graph.set(pr.base.ref, []);
     }
-    graph.get(pr.base.ref).push(ref.head.ref);
+    graph.get(pr.base.ref).push(pr.head.ref);
   }
 
   const visited = new Set();

@@ -32,6 +32,15 @@ function outputSHAs(list) {
   core.setOutput('pullRequestSHAs', shaList);
 }
 
+function outputRefs(list) {
+  let refs = list.map(p => p.base.ref);
+  core.setOutput('baseRefs', refs);
+}
+
+function outputCombo(list) {
+  core.setOutput('combo', list);
+}
+
 
 try {
   const token = core.getInput('token');
@@ -48,6 +57,8 @@ try {
     let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate); });
     outputNumbers(filtered);
     outputSHAs(filtered);
+    outputRefs(filtered);
+    outputCombo(list);
   });
 
 

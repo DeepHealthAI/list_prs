@@ -28,6 +28,10 @@ outputs:
     description: "List of pull request numbers"
   pullRequestSHAs:
     description: "List of pull request head SHA values"
+  baseRefs:
+    description: "List of base refs"
+  combo:
+    description: "Combined information"
 
 runs:
   using: 'node16'

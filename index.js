@@ -34,9 +34,9 @@ function outputSHAs(list) {
 
 function outputRefs(list) {
   let refs = list.map(p => p.base.ref);
-  refs = Array.from(Set(refs))
+  var unique = refs.filter((value, index, array) => array.indexOf(value) === index);
 
-  core.setOutput('baseRefs', refs);
+  core.setOutput('baseRefs', unique);
 }
 
 function outputCombo(list) {

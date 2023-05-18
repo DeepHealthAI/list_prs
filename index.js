@@ -38,7 +38,11 @@ function outputRefs(list) {
 }
 
 function outputCombo(list) {
-  let combo = list.map(p => {p.number: combo});
+  let combo = {}
+  for (entry in list) {
+    combo[entry.number] = entry
+  }
+
   core.setOutput('combo', combo);
 }
 

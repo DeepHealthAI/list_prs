@@ -42,7 +42,7 @@ function outputCombo(list) {
   core.warning(list.length)
   let combo = {}
   for (var i = 0; i < list.length; i++) {
-    combo[item[i].number] = item;
+    list[i].number = item;
     core.warning(i)
   }
   core.warning(combo)

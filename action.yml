@@ -26,11 +26,11 @@ inputs:
 outputs:
   pullRequestNumbers:
     description: "List of pull request numbers"
-  pullRequestSHAs:
-    description: "List of pull request head SHA values"
+  headRefs:
+    description: "List of pull request head refs"
   baseRefs:
-    description: "List of base refs"
-  combo:
+    description: "List of pull request base refs"
+  full_pr_info:
     description: "Combined information"
 
 runs:

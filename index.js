@@ -27,24 +27,24 @@ function outputNumbers(list) {
   core.setOutput('pullRequestNumbers', numberList);
 }
 
-function outputSHAs(list) {
+function outputHeadRefs(list) {
   let shaList = list.map(p => p.head.ref);
-  core.setOutput('pullRequestSHAs', shaList);
+  core.setOutput('headRefs', shaList);
 }
 
-function outputRefs(list) {
+function outputBaseRefs(list) {
   let refs = list.map(p => p.base.ref);
   var unique = refs.filter((value, index, array) => array.indexOf(value) === index);
   core.setOutput('baseRefs', unique);
 }
 
 function outputCombo(list) {
-  const combo = Object.create(null)
+  const full_pr_info = Object.create(null)
   for (var i = 0; i < list.length; i++) {
-    combo[i] = list[i];
+    full_pr_info[i] = list[i];
   }
 
-  core.setOutput('combo', combo);
+  core.setOutput('full_pr_info', full_pr_info);
 }
 
 
@@ -62,8 +62,8 @@ try {
   prom.then(function (list) {
     let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate); });
     outputNumbers(filtered);
-    outputSHAs(filtered);
-    outputRefs(filtered);
+    outputHeadRefs(filtered);
+    outputBaseRefs(filtered);
     outputCombo(filtered);
   });
 

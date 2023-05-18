@@ -1,24 +1,32 @@
 name: 'GitHub List Pull Requests'
+
 description: 'List pull requests of a given repository'
+
 branding:
   icon: 'list'
   color: 'blue'
+
 inputs:
+  
   token:
-    description: "Github token"
+    description: "Github Token"
     required: true
     default: ''
+  
   state:
     description: 'Pull request status (open/closed/all)'
     required: false
     default: 'all'
+  
   window:
-    description: 'Filter pull requests by window of time (hours)'
+    description: 'Filter to only PRs changed in the last number of hours.'
     required: false
     default: '24'
+
 outputs:
   pullRequestNumbers:
     description: "List of pull request numbers"
+
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: 'node16'
+  main: 'index.js'

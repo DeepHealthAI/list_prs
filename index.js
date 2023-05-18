@@ -7,7 +7,7 @@ function listPullRequests(token, repoOwner, repo, state) {
     owner: repoOwner,
     repo: repo,
     state: state,
-    sort: 'created',
+    sort: 'updated',
     direction: 'desc',
     per_page: 100,
   });
@@ -15,8 +15,8 @@ function listPullRequests(token, repoOwner, repo, state) {
 }
 
 function filterDate(pr, targetDate) {
-  var createdAt =new Date(pr.created_at)
-  if (createdAt > targetDate) {
+  var updatedAt =new Date(pr.updated_at)
+  if (updatedAt > targetDate) {
     return true;
   }
   return false;
@@ -33,7 +33,7 @@ try {
   const repoOwner = github.context.repo.owner;
   const repo = github.context.repo.repo;
   const state = core.getInput('state');
-  let filterMs = parseInt(core.getInput('window')) * 3600000 // convert to milliseconds
+  let filterMs = parseInt(core.getInput('window')) * 3600000
   let targetDate = new Date(Date.now() - filterMs);
   
   let prom = listPullRequests(token, repoOwner, repo, state);

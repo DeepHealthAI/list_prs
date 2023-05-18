@@ -38,7 +38,7 @@ function outputRefs(list) {
 }
 
 function outputCombo(list) {
-  let combo = {}
+  const combo = Object.create(null)
   for (var i = 0; i < list.length; i++) {
     combo[i].number = list[i];
   }

@@ -39,9 +39,9 @@ function outputRefs(list) {
 
 function outputCombo(list) {
   let combo = {}
-  list.forEach(function (item, index) {
-    combo[item.number] = item
-  });
+  for (var i = 0; i < list.length; i++) {
+    combo[item[i].number] = item
+  }
 
   core.setOutput('combo', combo);
 }

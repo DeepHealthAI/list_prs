@@ -40,7 +40,7 @@ function outputRefs(list) {
 function outputCombo(list) {
   const combo = Object.create(null)
   for (var i = 0; i < list.length; i++) {
-    combo[i][number] = list[i];
+    combo[i] = list[i];
   }
 
   core.setOutput('combo', combo);

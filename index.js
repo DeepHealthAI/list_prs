@@ -38,7 +38,7 @@ function topologicalSort(pr_list) {
   const graph = new Map();
 
   // Build the adjacency list
-  for (const ref of pr_list) {
+  for (const pr of pr_list) {
     if (!graph.has(pr.base.ref)) {
       graph.set(pr.base.ref, []);
     }
@@ -49,7 +49,7 @@ function topologicalSort(pr_list) {
   const ordering = [];
 
   // Iterate over all nodes in the graph
-  for (const ref of pr_list) {
+  for (const pr of pr_list) {
     if (!visited.has(pr.base.ref)) {
       dfs(pr.base.ref, graph, visited, ordering);
     }

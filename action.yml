@@ -20,5 +20,5 @@ outputs:
   pullRequestNumbers:
     description: "List of pull request numbers"
 runs:
-  using: 'node20'
+  using: 'node12'
   main: 'dist/index.js'

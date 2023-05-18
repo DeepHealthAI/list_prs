@@ -67,7 +67,7 @@ try {
     outputNumbers(filtered);
     outputSHAs(filtered);
     outputRefs(filtered);
-    outputCombo(list);
+    outputCombo(filtered);
   });
 
 

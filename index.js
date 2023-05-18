@@ -14,9 +14,20 @@ function listPullRequests(token, repoOwner, repo, state) {
   return pullRequests;
 }
 
-function filterDate(pr, targetDate) {
+function filterDate(pr, targetDate, repoOwner, repo) {
   var updatedAt = new Date(pr.updated_at)
   if ((updatedAt > targetDate) && !(pr.draft)) {
+
+    var number = pr.number
+
+    var commits = octokit.rest.pulls.listCommits({
+      repoOwner,
+      repo,
+      number
+    });
+
+    core.warning(commits)
+
     return true;
   }
   return false;
@@ -45,7 +56,7 @@ try {
   let prom = listPullRequests(token, repoOwner, repo, state);
 
   prom.then(function (list) {
-    let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate); });
+    let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate, repoOwner, repo); });
     outputNumbers(filtered);
     outputSHAs(filtered);
   });
@@ -54,12 +65,6 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
-
-// octokit.rest.pulls.listCommits({
-//  owner,
-//  repo,
-//  pull_number,
-//});
 
 /*
 [

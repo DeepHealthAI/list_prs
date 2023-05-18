@@ -26,6 +26,8 @@ inputs:
 outputs:
   pullRequestNumbers:
     description: "List of pull request numbers"
+  pullRequestSHAs:
+    description: "List of pull request head SHA values"
 
 runs:
   using: 'node16'

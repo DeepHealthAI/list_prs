@@ -1,8 +1,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
-function listPullRequests(token, repoOwner, repo, state) {
-  const octokit = github.getOctokit(token);
+function listPullRequests(octokit, repoOwner, repo, state) {
   var pullRequests = octokit.rest.pulls.list({
     owner: repoOwner,
     repo: repo,
@@ -14,12 +13,11 @@ function listPullRequests(token, repoOwner, repo, state) {
   return pullRequests;
 }
 
-function filterDate(pr, targetDate, repoOwner, repo) {
+function filterDate(pr, targetDate, repoOwner, repo, octokit) {
   var updatedAt = new Date(pr.updated_at)
   if ((updatedAt > targetDate) && !(pr.draft)) {
 
     var number = pr.number
-
     var commits = octokit.rest.pulls.listCommits({
       repoOwner,
       repo,
@@ -46,6 +44,7 @@ function outputSHAs(list) {
 
 
 try {
+  const octokit = github.getOctokit(token);
   const token = core.getInput('token');
   const repoOwner = github.context.repo.owner;
   const repo = github.context.repo.repo;
@@ -53,10 +52,10 @@ try {
   let filterMs = parseInt(core.getInput('window')) * 3600000
   let targetDate = new Date(Date.now() - filterMs);
   
-  let prom = listPullRequests(token, repoOwner, repo, state);
+  let prom = listPullRequests(octokit, repoOwner, repo, state);
 
   prom.then(function (list) {
-    let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate, repoOwner, repo); });
+    let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate, repoOwner, repo, octokit); });
     outputNumbers(filtered);
     outputSHAs(filtered);
   });

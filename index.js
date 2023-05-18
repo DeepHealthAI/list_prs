@@ -38,14 +38,10 @@ function outputRefs(list) {
 }
 
 function outputCombo(list) {
-  core.warning((typeof list))
-  core.warning(list.length)
   let combo = {}
   for (var i = 0; i < list.length; i++) {
-    list[i].number = item;
-    core.warning(i)
+    list[i].number = list[i];
   }
-  core.warning(combo)
 
   core.setOutput('combo', combo);
 }

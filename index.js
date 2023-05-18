@@ -16,18 +16,12 @@ function listPullRequests(token, repoOwner, repo, state) {
 
 function filterDate(pr, targetDate) {
   var updatedAt = new Date(pr.updated_at)
-  if (updatedAt > targetDate) {
+  if ((updatedAt > targetDate) && !(pr.draft)) {
     return true;
   }
   return false;
 }
 
-function filterDraft(pr) {
-  if (pr.draft) {
-    return false;
-  }
-  return false;
-}
 
 function outputNumbers(list) {
   let numberList = list.map(p => p.number);
@@ -51,7 +45,7 @@ try {
   let prom = listPullRequests(token, repoOwner, repo, state);
 
   prom.then(function (list) {
-    let filtered = list.data.filter(function(pr) { return filterDraft(filterDate(pr, targetDate)); });
+    let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate); });
     outputNumbers(filtered);
     outputSHAs(filtered);
   });

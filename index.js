@@ -38,7 +38,7 @@ function outputRefs(list) {
 }
 
 function outputCombo(list) {
-  core.warning(list)
+  core.warning((typeof list))
   core.warning(list.length)
   let combo = {}
   for (var i = 0; i < list.length; i++) {

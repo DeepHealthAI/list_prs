@@ -66,7 +66,7 @@ function outputNumbers(list) {
   core.setOutput('pullRequestNumbers', numberList);
 }
 
-function outputsortedRefs(list) {
+function outputSortedRefs(list) {
   sortedRefs = topologicalSort(list)
   core.setOutput('sortedRefs', sortedRefs);
 }
@@ -80,7 +80,7 @@ function outputBaseRefs(list) {
 function outputCombo(list) {
   const full_pr_info = Object.create(null)
   for (var i = 0; i < list.length; i++) {
-    full_pr_info[i] = list[i];
+    full_pr_info[list[i].head.ref] = list[i];
   }
 
   core.setOutput('full_pr_info', full_pr_info);
@@ -101,7 +101,7 @@ try {
   prom.then(function (list) {
     let filtered = list.data.filter(function(pr) { return filterDate(pr, targetDate); });
     outputNumbers(filtered);
-    outputsortedRefs(filtered);
+    outputSortedRefs(filtered);
     outputBaseRefs(filtered);
     outputCombo(filtered);
   });
